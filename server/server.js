@@ -1,13 +1,23 @@
+
+const path = require('path');
 const express = require('express');
 const bodyparser = require('body-parser');
 const _ = require('lodash')
 const cors = require('cors')
 const {ObjectId} = require('mongodb');
 
+const publicPath = path.join(__dirname, '..', 'public');
+
 const app = express();
 
+const port = process.env.PORT || 3000
 
-app.use(cors({origin: 'http://localhost:8080', credentials: true})) 
+app.use(cors({origin: '*', credentials: true})) 
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
 
 
 const {
@@ -80,4 +90,4 @@ app.post('/login' , (req,res) => {
         .catch((err) => { console.log(err) ; res.status(400).send(err)})})
         
 
-   app.listen(3000, console.log("Server running at 3000"))
+   app.listen(port, console.log(`Server running at ${port}`))

@@ -18,7 +18,10 @@ export const startSignUp = (userCredentials = {}) => {
     
     
     
-    return (fetch("http://localhost:3000/signup", {
+/*    return (fetch("http://localhost:3000/signup", */
+      return (fetch("/signup", 
+        
+        {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(userCredentials), // data can be `string` or {object}!
           headers:{
@@ -44,7 +47,7 @@ export const startLogin = (userCredentials = {}) => {
     
     
     
-    return (fetch("http://localhost:3000/login", {
+    return (fetch("/login", {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(userCredentials), // data can be `string` or {object}!
           headers:{

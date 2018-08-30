@@ -14,7 +14,7 @@ export const startAddNotes = (note = {}) => {
   return (dispatch) => {
     
     
-    return (fetch("http://localhost:3000/addnotes", {
+    return (fetch("/addnotes", {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(note), // data can be `string` or {object}!
           headers:{
@@ -33,7 +33,7 @@ export const startGetNotes = (userId = {}) => {
   return (dispatch) => {
     
     
-    return (fetch("http://localhost:3000/getnotes", {
+    return (fetch("/getnotes", {
           method: 'POST', // or 'PUT'
           body: JSON.stringify(userId), // data can be `string` or {object}!
           headers:{
