@@ -12,8 +12,8 @@
     "start": "node server/server.js",
     "heroku-postbuild": "yarn run build:prod"
   },
-    "engines": {
-    "node": "8.9.4"
+  "engines": {
+    "node": "10.1.0"
   },
   "dependencies": {
     "babel-cli": "6.24.1",
@@ -23,6 +23,7 @@
     "babel-plugin-transform-object-rest-spread": "6.23.0",
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "css-loader": "0.28.4",
     "express": "4.15.4",
