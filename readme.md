@@ -1,3 +1,14 @@
+
+
+This app has used MERN full stack- mongo db, experss, react , nodejs
+
+
+This can be simply used to have a private notes with private login.
+
+
+
+
+
 # Git Commands
 
 git init - Create a new git repo
