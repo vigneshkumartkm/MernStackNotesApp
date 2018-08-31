@@ -19,7 +19,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-
 const {
     mongoose
 } = require('./db/mongoosedb');
@@ -30,10 +29,7 @@ const {
     User
 } = require('./model/user');
 
-
-
 app.use(bodyparser.json());
-
 
 app.post('/addnotes' , (req, res) => {
     
