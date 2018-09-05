@@ -2,9 +2,7 @@ const mongoose = require('mongoose')
 
 mongoose.promise = global.promise;
 
-/* mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/MernStackTest'); */
-
-mongoose.connect('mongodb://localhost:27017/MernStackTest')
+mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost:27017/MernStackTest'); 
 
 
 module.exports = {mongoose};
