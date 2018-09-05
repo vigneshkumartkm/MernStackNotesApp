@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {startAddNotes , startGetNotes , startRemoveNote} from '../actions/notes'
+import {startAddNotes , startGetNotes , startRemoveNote , startUpdateNote} from '../actions/notes'
 
 class NotesDashboardPage extends React.Component {
     
-    state = { notesAdded: false , error: false, notesLoading: true}
+    state = { notesAdded: false , error: false, notesLoading: true , editId: "" }
     
     onSubmit = (e) => {
         
@@ -26,6 +26,24 @@ class NotesDashboardPage extends React.Component {
         let id = e.target.dataset.id;
         this.props.startRemoveNote(id);
         
+    }
+    
+    handleUpdate = (e) => {
+        
+        e.preventDefault();
+        let _id = e.target.dataset.id;
+        let note = e.target.elements.updatedNote.value
+        this.props.startUpdateNote({_id, note});
+        this.setState(()=> ({editId: ""}))
+        
+        
+    }
+    
+    showEdit = (e) => {
+        
+        e.preventDefault();
+        let id = e.target.dataset.id;
+        this.setState(()=> ({editId: id}))
     }
     
     componentDidMount = () => {
@@ -60,10 +78,25 @@ class NotesDashboardPage extends React.Component {
                 <div className="notelist">
                 <h2> Your Notes</h2>
                 {<ol className="notelist__ol">
-                  {this.props.notes.map((item) => (<li key={item._id}>{item.note}
-                                                    <button>EDIT</button> 
-                                                    <button data-id={item._id} onClick={this.handleRemove}> REMOVE </button>
-                                                   </li>) )}
+                  {this.props.notes.map((item) =>
+    
+                    (<li key={item._id}>
+                            {(item._id == this.state.editId) ? 
+                             (<form data-id={item._id} onSubmit={this.handleUpdate}>
+                                <input type="text" name="updatedNote" placeHolder={item.note}/>
+                                <div className="modifyButton"><button className="smallButton">update</button></div>
+                             </form> )
+                             :
+                            (
+                            <div>{item.note}
+                                <div className="modifyButton" >
+                                <button className="smallButton" data-id={item._id}  
+                                    onClick={this.showEdit}>EDIT</button> 
+                                <button className="smallButton" data-id={item._id} 
+                                    onClick={this.handleRemove}>REMOVE </button>
+                                </div>
+                            </div>) }
+                   </li> ))}
                  </ol>}
                 </div>
       </div>
@@ -78,9 +111,11 @@ class NotesDashboardPage extends React.Component {
 const mapStateToProps = (state) => {return {userData: state.userData , notes: state.notes}};
 
 const mapDispatchToProps = (dispatch) =>
+                    
 ({startAddNotes: (note) => dispatch(startAddNotes(note)), 
   startGetNotes: (note) => dispatch(startGetNotes(note)) ,
-  startRemoveNote: (note) => dispatch(startRemoveNote(note))
+  startRemoveNote: (note) => dispatch(startRemoveNote(note)),
+  startUpdateNote: (idAndNote) => dispatch(startUpdateNote(idAndNote))
  });
 
 export default connect(mapStateToProps , mapDispatchToProps)(NotesDashboardPage);

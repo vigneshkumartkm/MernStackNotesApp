@@ -11,6 +11,11 @@ export const removeNote = (id) => ({
   id 
 });
 
+export const updateNote = (updatedNote) => ({
+  type: 'UPDATE_NOTES',
+  updatedNote
+});
+
 export const reset = () => ({
     type: "RESET"
 })
@@ -68,6 +73,24 @@ export const startRemoveNote = (id) => {
        
         if(res.status !== 200) { return Promise.reject(res.status) }
         return res.json().then(() => {return dispatch(removeNote(id)) })})
+    .catch((err) => {return Promise.reject(err)}) )
+      
+    }}
+
+export const startUpdateNote = (idAndNote) => {
+  return (dispatch) => {
+    
+    return (fetch(`/update`, {
+          method: 'PATCH', 
+          body: JSON.stringify(idAndNote),
+          headers:{
+            'Content-Type': 'application/json'
+          }
+            })
+    .then((res)=> {
+       
+        if(res.status !== 200) { return Promise.reject(res.status) }
+        return res.json().then((updatedNote) => {return dispatch(updateNote(updatedNote)) })})
     .catch((err) => {return Promise.reject(err)}) )
       
     }}

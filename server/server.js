@@ -87,6 +87,19 @@ app.post('/login' , (req,res) => {
         .catch((err) => { console.log(err) ; res.status(400).send(err)})})
         
 
+app.patch('/update' , (req,res) => {
+    
+
+    let _id = _.pick(req.body, ['_id']);
+    let updatedNote = _.pick(req.body, ['note']);
+    
+    
+    Notes.findOneAndUpdate(_id, {$set: updatedNote }, {new: true}, (err, doc) => {
+    if(err){return res.status(400).send(err) }
+    return res.status(200).send(doc.toJSON())} )
+})
+   
+   
 app.delete('/delete/:id' , (req,res) => {
     
 
@@ -98,4 +111,6 @@ app.delete('/delete/:id' , (req,res) => {
               else {res.status(200).send(docs.toJSON())} })
         .catch((err) => { console.log(err) ; res.status(400).send(err)})})
 
-   app.listen(port, console.log(`Server running at ${port}`))
+   
+   
+app.listen(port, console.log(`Server running at ${port}`))

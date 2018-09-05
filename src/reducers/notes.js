@@ -10,6 +10,13 @@ export default (state = [], action) => {
         ...state,
         ...action.note
       ];
+     case 'UPDATE_NOTES':
+      return state.map(item => {
+                       if (item._id == action.updatedNote._id) 
+                            { return (action.updatedNote) }
+                        else 
+                            {return item } })
+                       ;
      case 'REMOVE_NOTES':
       return state.filter(item => (item._id !== action.id)) ;
       case 'RESET' :

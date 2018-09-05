@@ -123,7 +123,26 @@ after { clear: both; }
     margin: 10px ;
     padding-top: 5px;
     padding: 5px;
+     
+}
+
+.smallButton {
     
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 50px;
+    margin: 10px ;
+    padding: 7px;
+    font-size: 12px;
+    width: auto !important;
+    height: auto !important;
+    
+     
+}
+
+.modifyButton {
     
     
 }
