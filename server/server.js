@@ -77,6 +77,7 @@ app.post('/signup' , (req,res) => {
 app.post('/login' , (req,res) => {
     
     let body = _.pick(req.body, ['userId', 'password']);
+
     
     return User.findOne(body)
         .then((user)=> {
@@ -85,5 +86,16 @@ app.post('/login' , (req,res) => {
               else {res.status(200).send(user.toJSON())} })
         .catch((err) => { console.log(err) ; res.status(400).send(err)})})
         
+
+app.delete('/delete/:id' , (req,res) => {
+    
+
+    let id= req.params.id;
+
+    return Notes.findByIdAndRemove(id)
+        .then((docs)=> {
+              if(!docs) {res.status(404).send()}
+              else {res.status(200).send(docs.toJSON())} })
+        .catch((err) => { console.log(err) ; res.status(400).send(err)})})
 
    app.listen(port, console.log(`Server running at ${port}`))

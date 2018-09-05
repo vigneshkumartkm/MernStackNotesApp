@@ -10,6 +10,8 @@ export default (state = [], action) => {
         ...state,
         ...action.note
       ];
+     case 'REMOVE_NOTES':
+      return state.filter(item => (item._id !== action.id)) ;
       case 'RESET' :
           return initialState;
     default:

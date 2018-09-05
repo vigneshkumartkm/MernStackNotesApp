@@ -38,7 +38,6 @@ export const startSignUp = (userCredentials = {}) => {
 
 
 
-
 export const startLogin = (userCredentials = {}) => {
   return (dispatch) => {
     const { userId, password} = userCredentials;

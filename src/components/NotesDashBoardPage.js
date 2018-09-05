@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Link} from 'react-router-dom';
-import {startAddNotes , startGetNotes} from '../actions/notes'
+import {startAddNotes , startGetNotes , startRemoveNote} from '../actions/notes'
 
 class NotesDashboardPage extends React.Component {
     
@@ -17,6 +17,15 @@ class NotesDashboardPage extends React.Component {
         .then(() => this.setState(() => ({notesAdded: true})))
         .catch(() => this.setState(() => ({error: true})))
     
+    }
+    
+    
+    handleRemove = (e) => {
+        
+        e.preventDefault();
+        let id = e.target.dataset.id;
+        this.props.startRemoveNote(id);
+        
     }
     
     componentDidMount = () => {
@@ -51,7 +60,10 @@ class NotesDashboardPage extends React.Component {
                 <div className="notelist">
                 <h2> Your Notes</h2>
                 {<ol className="notelist__ol">
-                  {this.props.notes.map((item) => (<li>{item.note}</li>) )}
+                  {this.props.notes.map((item) => (<li key={item._id}>{item.note}
+                                                    <button>EDIT</button> 
+                                                    <button data-id={item._id} onClick={this.handleRemove}> REMOVE </button>
+                                                   </li>) )}
                  </ol>}
                 </div>
       </div>
@@ -67,7 +79,8 @@ const mapStateToProps = (state) => {return {userData: state.userData , notes: st
 
 const mapDispatchToProps = (dispatch) =>
 ({startAddNotes: (note) => dispatch(startAddNotes(note)), 
-  startGetNotes: (note) => dispatch(startGetNotes(note))
+  startGetNotes: (note) => dispatch(startGetNotes(note)) ,
+  startRemoveNote: (note) => dispatch(startRemoveNote(note))
  });
 
 export default connect(mapStateToProps , mapDispatchToProps)(NotesDashboardPage);

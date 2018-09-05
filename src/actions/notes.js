@@ -6,6 +6,11 @@ export const addNotes = (note) => ({
   note 
 });
 
+export const removeNote = (id) => ({
+  type: 'REMOVE_NOTES',
+  id 
+});
+
 export const reset = () => ({
     type: "RESET"
 })
@@ -48,3 +53,21 @@ export const startGetNotes = (userId = {}) => {
       
     }}
 
+
+
+export const startRemoveNote = (id) => {
+  return (dispatch) => {
+    
+    return (fetch(`/delete/${id}`, {
+          method: 'DELETE', 
+          headers:{
+            'Content-Type': 'application/json'
+          }
+            })
+    .then((res)=> {
+       
+        if(res.status !== 200) { return Promise.reject(res.status) }
+        return res.json().then(() => {return dispatch(removeNote(id)) })})
+    .catch((err) => {return Promise.reject(err)}) )
+      
+    }}
